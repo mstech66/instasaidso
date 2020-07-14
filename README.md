@@ -1,2 +1,2 @@
-# theysaidso
-Quotes App for Obsessive Instagrammers
+# Insta Said So!
+Quotes App which has similar aesthetics of Instagram
