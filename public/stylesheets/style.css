@@ -1,0 +1,235 @@
+@font-face {
+    src: url('../fonts/Philosopher-Bold.ttf');
+    font-family: Philosopher-Bold
+}
+
+@font-face {
+    src: url('../fonts/DMSerifText-Regular.ttf');
+    font-family: DMSerifText-Regular
+}
+
+@font-face {
+    src: url('../fonts/Roboto-Medium.ttf');
+    font-family: Roboto-Medium;
+}
+
+html,
+body,
+.container {
+    min-height: 100vh;
+    user-select: none;
+}
+
+body {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    padding-top: 8px;
+}
+
+.acrylic {
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, .3);
+    position: relative;
+}
+
+#quote {
+    text-align: center;
+    font-family: DMSerifText-Regular;
+    font-size: 3vw;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+#quote,
+#author {
+    margin: 0;
+}
+
+.centered {
+    display: inline-block;
+}
+
+#refresh,
+#share,
+#settings {
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: 100px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.buttonBar {
+    display: none;
+}
+
+.quoteData {
+    align-items: center;
+    justify-content: center;
+}
+
+.igContainer {
+    position: relative;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    width: 75vh;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    font-family: Roboto-Medium;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    padding: 12px 8px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 12px 12px;
+}
+
+.avatar {
+    width: 6vh;
+    height: 6vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+#author {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+#more {
+    position: absolute;
+    right: 0;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.buttons>* {
+    margin-right: 12px;
+}
+
+#bookmark {
+    position: absolute;
+    right: 0;
+    margin-right: 12px;
+}
+
+.likeButton {
+    border: none;
+    background-color: white;
+}
+
+.likeButton:focus {
+    outline-width: 0;
+}
+
+@keyframes like {
+    0% {
+        transform: scale(1.0);
+    }
+    100% {
+        transform: scale(0.8);
+    }
+}
+
+@keyframes unlike {
+    0% {
+        transform: scale(1.0);
+    }
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes heartPound {
+    0% {
+        transform: scale(1.0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(0.0);
+    }
+}
+
+@keyframes heartPoundReverse {
+    0% {
+        transform: scale(1.0);
+    }
+    100% {
+        transform: scale(0.0);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.likeAnimation {
+    animation: like 100ms ease-in-out 2 alternate;
+}
+
+.unlikeAnimation {
+    animation: like 100ms ease-in 2 alternate;
+}
+
+.side-pane {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: white;
+    height: 50vh;
+    width: 60vh;
+    margin: 8px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.heart {
+    position: absolute;
+}
+
+.hiddenHeart {
+    display: none;
+}
+
+.pound {
+    animation: heartPound 200ms ease-in 2 alternate;
+}
+
+#title {
+    font-family: "Philosopher-Bold";
+}

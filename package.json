@@ -1,0 +1,25 @@
+{
+    "name": "instasaidso",
+    "version": "1.0.0",
+    "description": "Quotes App Which Looks Like Instagram",
+    "main": "index.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "keywords": [
+        "quotes"
+    ],
+    "author": "Manthan Mevada",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-handlebars": "^4.0.3",
+        "node-fetch": "^2.6.0",
+        "request": "^2.88.2",
+        "unsplash-js": "^6.0.0"
+    },
+    "devDependencies": {
+        "electron": "^8.2.3"
+    }
+}

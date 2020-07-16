@@ -1,2 +1,2 @@
 # Insta Said So!
-Quotes App which has similar aesthetics of Instagram
+Quotes app for desktop which looks like Instagram
