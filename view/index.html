@@ -8,6 +8,7 @@
         window.$ = window.jQuery = require('../public/javascripts/jquery.min.js');
     </script>
     <link rel="stylesheet" href="../public/stylesheets/style.css">
+    <link rel="stylesheet" href="../public/stylesheets/ispinner.css">
     <link rel="stylesheet" href="../public/stylesheets/bootstrap.min.css">
     <link href="../public/stylesheets/material-components-web.min.css" rel="stylesheet">
     <script src="../public/javascripts/material-components-web.min.js"></script>
@@ -16,9 +17,27 @@
 </head>
 
 <body>
+    <div class="splash">
+        <h1 class="splash-title">InstaSaidSo!</h1>
+        <div class="ispinner white animating">
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+        </div>
+    </div>
     <div class="acrylic">
         <div class="container">
-            <div class="post-pane"></div>
+            <div class="post-pane">
+            </div>
         </div>
     </div>
     <div class="side-pane">
@@ -81,6 +100,25 @@
         });
     }
 
+    function showLoader() {
+        let loaderBlock = `
+        <div class="ispinner gray animating">
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+            <div class="ispinner-blade"></div>
+        </div>
+        `;
+    }
+
     function getQuote(index) {
         $.get("http://localhost:3000/", function(data, status) {
             console.log(`${data.text} and ${data.id} and length is ${data.length}`);
@@ -129,8 +167,9 @@
                 </div>
             </div>
             `;
-
             $('.post-pane').append(igContainer);
+            $('.splash').remove();
+            $('body').css("overflow-y", "scroll");
         });
     }
 

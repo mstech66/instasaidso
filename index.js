@@ -5,63 +5,58 @@ const expressApp = express();
 let request = require('request');
 const path = require('path');
 const dotenv = require('dotenv');
-const { cookie } = require('request');
 
 let win;
 
-let count = 0;
-
 dotenv.config();
-
-const countCookie = {
-    url: "http://localhost",
-    name: "pageCount",
-    value: "0"
-};
 
 function setCount(newCount) {
     session.defaultSession.cookies.set({ url: "http://localhost", name: "pageCount", value: `${newCount}` }).then((result) => {
-        console.log("Kar di set iske saath " + newCount);
-    }).catch((err) => console.log("Smth happened"));
+        console.log("Set the cookie with count ~ " + newCount);
+    }).catch((err) => console.log("Smth happened while setting cookies"));
 }
 
 function getCount(callback) {
     session.defaultSession.cookies.get({ name: "pageCount" }).then((cookies) => {
-        let intCount = parseInt(cookie[0].value);
-        console.log("Cookie mili get se " + intCount);
+        let intCount = parseInt(cookies[0].value);
         return callback(intCount);
     }).catch((err) => {
-        console.log("Nahi mili cookie kyuki " + err);
-        session.defaultSession.cookies.set(countCookie);
+        console.log("Something happened while getting cookies");
         return callback(0);
+    });
+}
+
+function initCount() {
+    session.defaultSession.cookies.set({
+        url: "http://localhost",
+        name: "pageCount",
+        value: "0"
     });
 }
 
 function getRandomQuote() {
     return new Promise((resolve, reject) => {
-        request.get({
-            "url": `https://instaquotes.herokuapp.com/quotes?skip=${count}&limit=1`,
-            "headers": {
-                "Content-Type": "Application/json",
-                "auth-token": process.env.TOKEN_SECRET
-            }
-        }, (err, res, body) => {
-            if (err) {
-                resolve(JSON.parse('[{"text": "You seem lost", "author": "Please connect to the internet"}]'));
-            } else {
-                if (res.statusCode == 200) {
-                    let quote = JSON.parse(body);
-                    if (Object.keys(quote).length == 0) {
-                        resolve(JSON.parse('{"id": -1}'));
-                    }
-                    count += 1;
-                    getCount((count) => {
-                        console.log(`count is ${count}`);
-                        setCount(count);
-                    });
-                    resolve(quote[0]);
+        getCount((count) => {
+            request.get({
+                "url": `https://instaquotes.herokuapp.com/quotes?skip=${count}&limit=1`,
+                "headers": {
+                    "Content-Type": "Application/json",
+                    "auth-token": process.env.TOKEN_SECRET
                 }
-            }
+            }, (err, res, body) => {
+                if (err) {
+                    resolve(JSON.parse('[{"text": "You seem lost", "author": "Please connect to the internet"}]'));
+                } else {
+                    if (res.statusCode == 200) {
+                        let quote = JSON.parse(body);
+                        if (Object.keys(quote).length == 0) {
+                            resolve(JSON.parse('{"id": -1}'));
+                        }
+                        setCount(count + 1);
+                        resolve(quote[0]);
+                    }
+                }
+            });
         });
     });
 }
@@ -108,7 +103,7 @@ function createWindow() {
     });
     // win.setMenu(null);
     win.loadFile("./view/index.html");
-    getCount();
+    initCount();
 }
 
 app.whenReady().then(createWindow);
