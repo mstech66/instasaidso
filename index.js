@@ -1,9 +1,7 @@
 const { app, BrowserWindow, session } = require('electron');
-const remote = require('electron').remote;
 const express = require('express');
 const expressApp = express();
 let request = require('request');
-const path = require('path');
 const dotenv = require('dotenv');
 
 let win;
@@ -11,9 +9,9 @@ let win;
 dotenv.config();
 
 function setCount(newCount) {
-    session.defaultSession.cookies.set({ url: "http://localhost", name: "pageCount", value: `${newCount}` }).then((result) => {
+    session.defaultSession.cookies.set({ url: "http://localhost", name: "pageCount", value: `${newCount}` }).then(() => {
         console.log("Set the cookie with count ~ " + newCount);
-    }).catch((err) => console.log("Smth happened while setting cookies"));
+    }).catch((err) => console.log("Smth happened while setting cookies " + err));
 }
 
 function getCount(callback) {
@@ -21,7 +19,7 @@ function getCount(callback) {
         let intCount = parseInt(cookies[0].value);
         return callback(intCount);
     }).catch((err) => {
-        console.log("Something happened while getting cookies");
+        console.log("Something happened while getting cookies " + err);
         return callback(0);
     });
 }
@@ -34,8 +32,8 @@ function initCount() {
     });
 }
 
-function getRandomQuote() {
-    return new Promise((resolve, reject) => {
+function getQuote() {
+    return new Promise((resolve) => {
         getCount((count) => {
             request.get({
                 "url": `https://instaquotes.herokuapp.com/quotes?skip=${count}&limit=1`,
@@ -63,8 +61,8 @@ function getRandomQuote() {
 
 expressApp.listen(3000);
 
-expressApp.get('/', function(req, res, next) {
-    getRandomQuote().then((quoteData) => {
+expressApp.get('/', function(req, res) {
+    getQuote().then((quoteData) => {
         if (quoteData.id != -1) {
             let author = quoteData.author;
             author = author.toLowerCase().replace(/ /g, '');
@@ -83,15 +81,6 @@ expressApp.get('/', function(req, res, next) {
         console.log(err);
     });
 });
-
-expressApp.get('/reload', function(req, res, next) {
-    reload();
-});
-
-
-function reload() {
-    win.reload();
-}
 
 function createWindow() {
     win = new BrowserWindow({

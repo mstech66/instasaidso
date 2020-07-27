@@ -21,6 +21,7 @@
         "unsplash-js": "^6.0.0"
     },
     "devDependencies": {
-        "electron": "^8.2.3"
+        "electron": "^8.2.3",
+        "eslint": "^7.5.0"
     }
 }
