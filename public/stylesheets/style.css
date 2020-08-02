@@ -1,3 +1,4 @@
+@import "keyframes.css";
 @font-face {
     src: url('../fonts/Philosopher-Bold.ttf');
     font-family: Philosopher-Bold
@@ -22,11 +23,12 @@ body,
 
 body {
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-    overflow: hidden;
 }
 
 .container {
     position: relative;
+    display: flex;
+    justify-content: space-around;
     width: 100%;
     padding-top: 8px;
 }
@@ -37,6 +39,43 @@ body {
     backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, .3);
     position: relative;
+}
+
+.post-pane {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ispinner {
+    z-index: 1000;
+    align-self: start;
+}
+
+.abs-spinner {
+    position: relative;
+    margin: 12px 0 12px 0;
+    align-self: flex-end;
+    width: 100%;
+    height: 22px;
+}
+
+.loader {
+    display: grid;
+    justify-content: center;
+}
+
+.bio {
+    background-color: white;
+    height: 50vh;
+    width: 60vh;
+    margin: 8px;
+    border-radius: 5px;
+    text-align: center;
+    display: grid;
+    place-items: center;
+    position: sticky;
+    top: 16px;
 }
 
 #quote {
@@ -61,10 +100,6 @@ body {
     color: rgba(255, 255, 255, 0.75);
     border-radius: 100px;
     background-color: rgba(0, 0, 0, 0.1);
-}
-
-.buttonBar {
-    display: none;
 }
 
 .quoteData {
@@ -142,83 +177,12 @@ body {
     outline-width: 0;
 }
 
-@keyframes like {
-    0% {
-        transform: scale(1.0);
-    }
-    100% {
-        transform: scale(0.8);
-    }
-}
-
-@keyframes unlike {
-    0% {
-        transform: scale(1.0);
-    }
-    100% {
-        transform: scale(1.2);
-    }
-}
-
-@keyframes heartPound {
-    0% {
-        transform: scale(1.0);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(0.0);
-    }
-}
-
-@keyframes heartPoundReverse {
-    0% {
-        transform: scale(1.0);
-    }
-    100% {
-        transform: scale(0.0);
-    }
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
 .likeAnimation {
     animation: like 100ms ease-in-out 2 alternate;
 }
 
 .unlikeAnimation {
     animation: like 100ms ease-in 2 alternate;
-}
-
-.side-pane {
-    position: fixed;
-    top: 0;
-    right: 0;
-    background-color: white;
-    height: 50vh;
-    width: 60vh;
-    margin: 8px;
-    border-radius: 5px;
-    text-align: center;
-    display: grid;
-    place-items: center;
 }
 
 .heart {
@@ -253,9 +217,4 @@ body {
     color: #f6f6f6;
     margin-bottom: 20px;
     align-self: end;
-}
-
-.ispinner {
-    z-index: 1000;
-    align-self: start;
 }

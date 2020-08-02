@@ -37,11 +37,14 @@
     <div class="acrylic">
         <div class="container">
             <div class="post-pane">
+
+            </div>
+            <div class="side-pane">
+                <div class="bio">
+                    <button type="button" class="btn btn-light">Push Notification</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="side-pane">
-        <button type="button" class="btn btn-light">Push Notification</button>
     </div>
 </body>
 
@@ -100,26 +103,34 @@
         });
     }
 
-    function showLoader() {
+    function appendLoader() {
         let loaderBlock = `
-        <div class="ispinner gray animating">
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
-            <div class="ispinner-blade"></div>
+        <div class="abs-spinner">
+            <div class="loader">
+                <div class="ispinner gray animating">
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                    <div class="ispinner-blade"></div>
+                </div>
+            </div>
         </div>
         `;
+        if ($('.abs-spinner')[0] == null) {
+            $('.post-pane').append(loaderBlock);
+        }
     }
 
     function getQuote(index) {
+        appendLoader();
         $.get("http://localhost:3000/", function(data, status) {
             console.log(`${data.text} and ${data.id} and length is ${data.length}`);
             if (data.id == -1) {
@@ -168,18 +179,11 @@
             </div>
             `;
             $('.post-pane').append(igContainer);
+            $('.abs-spinner').remove();
             $('.splash').remove();
             $('body').css("overflow-y", "scroll");
         });
     }
-
-
-    $('#refresh').on('click', function(event) {
-        event.preventDefault();
-        $.get("http://localhost:3000/reload", function(data, status) {
-            console.log("Refreshed App...");
-        });
-    });
 </script>
 
 <script defer>
