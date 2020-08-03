@@ -84,7 +84,7 @@ expressApp.get('/', function(req, res) {
 
 function createWindow() {
     win = new BrowserWindow({
-        width: 800,
+        width: 865,
         height: 600,
         webPreferences: {
             nodeIntegration: true
