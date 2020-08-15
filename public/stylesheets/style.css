@@ -208,7 +208,7 @@ body {
     top: 0;
     z-index: 100;
     display: grid;
-    justify-items: center;
+    place-content: center;
     animation: gradient 15s ease infinite;
     background-size: 400% 400%;
 }

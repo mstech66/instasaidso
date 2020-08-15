@@ -88,8 +88,7 @@ function createWindow() {
         height: 600,
         webPreferences: {
             nodeIntegration: true
-        },
-        resizable: false
+        }
     });
     // win.setMenu(null);
     win.loadFile("./view/index.html");
