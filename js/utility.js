@@ -1,31 +1,43 @@
-const { session } = require('electron');
+const os = require('os');
+const storage = require('electron-json-storage');
 
-function initCookie(name, value) {
-    session.defaultSession.cookies.set({
-        url: "http://localhost",
-        name: name,
-        value: value
+storage.setDataPath(os.tmpdir());
+
+
+function saveLoginInfo(finaluserdata) {
+    storage.set('login', finaluserdata, function(error) {
+        if (error) throw error;
+        console.log("Saved Login Info Successfully");
     });
 }
 
-function setCount(newCount) {
-    session.defaultSession.cookies.set({ url: "http://localhost", name: "pageCount", value: `${newCount}` }).then(() => {
-        console.log("Set the cookie with count ~ " + newCount);
-    }).catch((err) => console.log("Smth happened while setting cookies " + err));
+function doesLoginExist(callback) {
+    storage.get('login', function(err, data) {
+        if (err) throw err;
+        let result = data != null ? true : false;
+        callback(result);
+    });
 }
 
-function getCount(callback) {
-    session.defaultSession.cookies.get({ name: "pageCount" }).then((cookies) => {
-        let intCount = parseInt(cookies[0].value);
-        return callback(intCount);
-    }).catch((err) => {
-        console.log("Something happened while getting cookies " + err);
-        return callback(0);
+function setData(name, value) {
+    console.log('updated value comes is ' + value);
+    let data = {};
+    data[name] = value;
+    storage.set(name, data, function(error) {
+        if (error) throw error;
+    });
+}
+
+function getData(name, callback) {
+    storage.get(name, function(err, data) {
+        if (err) throw err;
+        callback(data);
     });
 }
 
 module.exports = {
-    initCookie: initCookie,
-    getCount: getCount,
-    setCount: setCount
+    saveLoginInfo: saveLoginInfo,
+    doesLoginExist: doesLoginExist,
+    setData: setData,
+    getData: getData
 };

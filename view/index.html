@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Insta Said So!</title>
+    <title>InstaSaidSo!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
         window.$ = window.jQuery = require('../public/javascripts/jquery.min.js');
@@ -20,9 +20,6 @@
 <body>
     <div class="splash">
         <h1 class="splash-title">InstaSaidSo!</h1>
-        <a class="btn btn-light" href="http://localhost:3000/login" role="button" style="text-transform:none">
-            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" /> Login with Google
-        </a>
     </div>
     <div class="acrylic">
         <div class="container">
@@ -58,28 +55,22 @@
     }
 
     $(document).ready(function() {
-        if (getCookie('login') == undefined) {
-            console.log("Showing Login Button");
-        } else {
-            appendLoader('.splash');
-            let count = 5;
-            while (count != 0) {
-                getQuote(count);
-                count--;
-            }
-            $(window).scroll(function() {
-                if ($(window).scrollTop() + $(window).height() > $(document).height() - 10) {
-                    if (reachedEnd) {
-                        console.log("Reached the end!!");
-                    } else {
-                        getQuote(2);
-                    }
-                }
-            });
+        appendLoader('.splash');
+        let count = 5;
+        while (count != 0) {
+            getQuote(count);
+            count--;
         }
+        $(window).scroll(function() {
+            if ($(window).scrollTop() + $(window).height() > $(document).height() - 10) {
+                if (reachedEnd) {
+                    console.log("Reached the end!!");
+                } else {
+                    getQuote(2);
+                }
+            }
+        });
     });
-
-
 
     function like(button, svg, path) {
         button.style.animation = "";

@@ -16,7 +16,8 @@
         "electron-json-storage": "^4.2.0",
         "express": "^4.17.1",
         "gaxios": "^3.1.0",
-        "googleapis": "^59.0.0"
+        "googleapis": "^59.0.0",
+        "request": "^2.88.2"
     },
     "devDependencies": {
         "electron": "^8.2.3",
