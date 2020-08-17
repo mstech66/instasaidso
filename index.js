@@ -1,43 +1,44 @@
-const { app, BrowserWindow, session } = require('electron');
+const { app, BrowserWindow } = require('electron');
 const express = require('express');
 const expressApp = express();
-let request = require('request');
 const dotenv = require('dotenv');
+const { request } = require('gaxios');
+const { google } = require('googleapis');
+const { initCookie, getCount, setCount } = require('./js/utility');
+
+const CLIENT_ID = "609317059477-3qk698v49g107e09dri3mb0pm5tt0dco.apps.googleusercontent.com";
+const CLIENT_SECRET = "JhUWjVOO5uSg_RVz2Yji73Wa";
+const REDIRECT_URL = "http://localhost:3000/redirect";
+
+const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+const scopes = ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'];
+const url = oauth2Client.generateAuthUrl({ access_type: 'offline', scope: scopes });
 
 let win;
 
 dotenv.config();
 
-function setCount(newCount) {
-    session.defaultSession.cookies.set({ url: "http://localhost", name: "pageCount", value: `${newCount}` }).then(() => {
-        console.log("Set the cookie with count ~ " + newCount);
-    }).catch((err) => console.log("Smth happened while setting cookies " + err));
-}
 
-function getCount(callback) {
-    session.defaultSession.cookies.get({ name: "pageCount" }).then((cookies) => {
-        let intCount = parseInt(cookies[0].value);
-        return callback(intCount);
-    }).catch((err) => {
-        console.log("Something happened while getting cookies " + err);
-        return callback(0);
-    });
+async function codparser(url, callback) {
+    let rawurl = url;
+    let unreplacedurl = rawurl.substring(rawurl.indexOf("code=") + 5, rawurl.indexOf("&scope="));
+    var code = unreplacedurl.replace("%2F", "/");
+    let { tokens } = await oauth2Client.getToken(code)
+    return callback(tokens.access_token)
 }
-
-function initCount() {
-    session.defaultSession.cookies.set({
-        url: "http://localhost",
-        name: "pageCount",
-        value: "0"
-    });
+async function httpcaller(gottoken) {
+    const userdata = await request({ baseURL: 'https://www.googleapis.com', url: '/oauth2/v2/userinfo', headers: { 'Authorization': 'Bearer ' + gottoken } })
+    return (userdata.data)
 }
 
 function getQuote() {
     return new Promise((resolve) => {
         getCount((count) => {
-            request.get({
-                "url": `https://instaquotes.herokuapp.com/quotes?skip=${count}&limit=1`,
-                "headers": {
+            request({
+                method: 'GET',
+                baseURL: 'https://instaquotes.herokuapp.com',
+                url: `/quotes?skip=${count}&limit=1`,
+                headers: {
                     "Content-Type": "Application/json",
                     "auth-token": process.env.TOKEN_SECRET
                 }
@@ -82,6 +83,19 @@ expressApp.get('/', function(req, res) {
     });
 });
 
+expressApp.get('/login', function(req, res) {
+    res.setHeader('Content-Type', 'text/html');
+    res.redirect(url);
+});
+
+expressApp.get('/redirect', async function(req, res) {
+    const finaluserdata = await codparser(req.url, httpcaller)
+    console.log(finaluserdata);
+    initCookie('login', JSON.stringify(finaluserdata));
+    res.status(200).send();
+    win.loadFile("./view/index.html");
+});
+
 function createWindow() {
     win = new BrowserWindow({
         width: 865,
@@ -92,7 +106,7 @@ function createWindow() {
     });
     // win.setMenu(null);
     win.loadFile("./view/index.html");
-    initCount();
+    initCookie("pageCount", 0);
 }
 
 app.whenReady().then(createWindow);
