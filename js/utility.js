@@ -13,7 +13,7 @@ function saveLoginInfo(finaluserdata) {
 function doesLoginExist(callback) {
     storage.get('login', function(err, data) {
         if (err) throw err;
-        let result = data != null ? true : false;
+        let result = data['login'] != null ? true : false;
         callback(result);
     });
 }
@@ -24,6 +24,18 @@ function setData(name, value) {
     storage.set(name, data, function(error) {
         if (error) throw error;
     });
+}
+
+function removeData(name) {
+    storage.remove(name, (err) => {
+        if (err) throw err;
+    });
+}
+
+function clearStorage() {
+    storage.clear((err) => {
+        if (err) throw err;
+    })
 }
 
 function getData(name, callback) {
@@ -37,5 +49,7 @@ module.exports = {
     saveLoginInfo: saveLoginInfo,
     doesLoginExist: doesLoginExist,
     setData: setData,
-    getData: getData
+    getData: getData,
+    removeData: removeData,
+    clearStorage: clearStorage
 };

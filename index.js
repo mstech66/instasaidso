@@ -6,7 +6,7 @@ const gaxios = require('gaxios');
 const request = require('request');
 const { google } = require('googleapis');
 const util = require('util');
-const { saveLoginInfo, doesLoginExist, getData, setData } = require('./js/utility');
+const { saveLoginInfo, doesLoginExist, getData, setData, clearStorage } = require('./js/utility');
 
 dotenv.config();
 
@@ -101,7 +101,13 @@ expressApp.get('/profile', function(req, res) {
     getData('login', (data) => {
         res.status(200).json(data);
     });
-})
+});
+
+expressApp.get('/signout', function(req, res) {
+    clearStorage();
+    res.status(200);
+    win.loadFile('./view/login.html');
+});
 
 function createWindow() {
     win = new BrowserWindow({
