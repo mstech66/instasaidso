@@ -28,7 +28,17 @@
             </div>
             <div class="side-pane">
                 <div class="bio">
-                    <button type="button" class="btn btn-light">Push Notification</button>
+                    <div class="picture">
+                        <img src="" class="profile">
+                    </div>
+                    <div class="details">
+                        <div class="account_name">
+                            <span id="name">Name</span>
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="signout btn btn-outline-danger">Signout</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,6 +66,7 @@
 
     $(document).ready(function() {
         appendLoader('.splash');
+        getUserData();
         let count = 5;
         while (count != 0) {
             getQuote(count);
@@ -101,6 +112,15 @@
         });
     }
 
+    function getUserData() {
+        $.get("http://localhost:3000/profile", function(data, status) {
+            let usrdata = JSON.parse(data);
+            $('.profile').attr('src', usrdata.picture);
+            $('#name').text(usrdata.name);
+            console.log("Name is " + usrdata.name);
+        });
+    }
+
     function appendLoader(className) {
         let loaderBlock = `
         <div class="abs-spinner">
@@ -128,7 +148,7 @@
     }
 
     function getQuote(index) {
-        appendLoader('.abs-spinner');
+        appendLoader('.post-pane');
         $.get("http://localhost:3000/", function(data, status) {
             console.log(`${data.text} and ${data.id} and length is ${data.length}`);
             if (data.id == -1) {

@@ -93,9 +93,15 @@ expressApp.get('/redirect', async function(req, res) {
     const finaluserdata = await codparser(req.url, httpcaller);
     console.log(finaluserdata);
     saveLoginInfo(JSON.stringify(finaluserdata));
-    res.status(200).send();
+    res.status(200).json(finaluserdata);
     win.loadFile("./view/index.html");
 });
+
+expressApp.get('/profile', function(req, res) {
+    getData('login', (data) => {
+        res.status(200).json(data);
+    });
+})
 
 function createWindow() {
     win = new BrowserWindow({
@@ -111,5 +117,4 @@ function createWindow() {
     });
     setData("pageCount", 0);
 }
-
 app.whenReady().then(createWindow);

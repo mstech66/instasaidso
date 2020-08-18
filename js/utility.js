@@ -7,7 +7,6 @@ storage.setDataPath(os.tmpdir());
 function saveLoginInfo(finaluserdata) {
     storage.set('login', finaluserdata, function(error) {
         if (error) throw error;
-        console.log("Saved Login Info Successfully");
     });
 }
 
@@ -20,7 +19,6 @@ function doesLoginExist(callback) {
 }
 
 function setData(name, value) {
-    console.log('updated value comes is ' + value);
     let data = {};
     data[name] = value;
     storage.set(name, data, function(error) {
