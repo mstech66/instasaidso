@@ -1,4 +1,20 @@
-.material-card {
-    margin: 12px;
-    background-color: antiquewhite;
+.container {
+    display: grid;
+    justify-items: center;
+}
+
+.main {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 800px;
+    display: grid;
+    grid-template-columns: 1fr minmax(350px, 35%);
+    gap: 8px;
+}
+
+.feed-card,
+.bio-card {
+    background-color: #212121;
+    color: white;
+    text-align: center;
 }
