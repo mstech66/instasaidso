@@ -13,6 +13,7 @@ function saveLoginInfo(finaluserdata) {
 function doesLoginExist(callback) {
     storage.get('login', function(err, data) {
         if (err) throw err;
+        console.log(data);
         let result = data['login'] != null ? true : false;
         callback(result);
     });
