@@ -1,0 +1,9 @@
+{
+    "/api": {
+        "target": "https://instaquotes.herokuapp.com",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "info",
+        "pathRewrite": { "^/api": "" }
+    }
+}
