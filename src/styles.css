@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    src: url('./assets/fonts/DMSerifDisplay-Regular.ttf');
+    font-family: DMSerifText-Regular
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background: #FC5C7D;
+    background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D) fixed;
+    background: linear-gradient(to right, #6A82FB, #FC5C7D) fixed;
+}

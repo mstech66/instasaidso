@@ -1,0 +1,99 @@
+.feed-card {
+    background-color: #f8f8f8;
+    color: #313131;
+}
+
+.mat-card-image {
+    margin: 0 -16px 0px -16px;
+}
+
+.feed-card {
+    height: 500px;
+    min-width: 400px;
+    margin-bottom: 12px;
+}
+
+.bio-card {
+    height: 250px;
+    position: sticky;
+    top: 32px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.card-content {
+    font-family: "DMSerifText-Regular";
+    font-size: 2rem;
+    background-color: white;
+    height: 390px;
+    margin-bottom: 0px;
+    display: flex;
+    place-content: center;
+    text-align: center;
+    user-select: none;
+}
+
+.mat-card-header {
+    padding: 8px;
+    margin: 0px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.mat-card {
+    padding: 0px;
+}
+
+.mat-card-title {
+    font-size: 15px;
+    color: #212121;
+    margin-bottom: 0px !important;
+}
+
+.mat-card-actions {
+    margin: 0px;
+}
+
+.actionbtn {
+    border: none;
+    background-color: transparent;
+    padding: 8px;
+}
+
+.actionbtn:hover {
+    cursor: pointer;
+}
+
+.actionbtn:focus {
+    outline-width: 0px;
+}
+
+.save,
+.more {
+    position: absolute;
+    right: 8px;
+}
+
+.likeAnimation {
+    animation: like 100ms ease-in-out 2 alternate;
+}
+
+.unlikeAnimation {
+    animation: like 100ms ease-in 2 alternate;
+}
+
+.heart {
+    position: absolute;
+    align-self: center;
+}
+
+.hiddenHeart {
+    display: none;
+}
+
+.pound {
+    animation: heartPound 200ms ease-in 2 alternate;
+}
