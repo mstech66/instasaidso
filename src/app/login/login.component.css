@@ -27,11 +27,11 @@
     font-family: "DMSerifText-Regular";
     color: #f6f6f6;
     font-size: 3rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     align-self: end;
 }
 
-.gbutton {
+#gbutton {
     color: #414141;
     padding: 8px 0px;
 }
