@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 declare const gapi: any;
 @Component({
@@ -25,12 +26,19 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler(element, {}, (googleUser) => {
       const profile = googleUser.getBasicProfile();
       console.log('Name: ' + profile.getName());
+      localStorage.setItem('user_profile', profile);
+      // this.router.navigate(['/home']);
+      location.replace('http://localhost:4200/home');
     }, (error) => {
       alert(JSON.stringify(error, undefined, 2));
     });
   }
 
-  constructor() { }
+  constructor(private router: Router) {
+    if (localStorage.getItem('user_profile') != null) {
+      this.router.navigate(['/home']);
+    }
+  }
 
   ngOnInit() {
   }

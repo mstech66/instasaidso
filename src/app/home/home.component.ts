@@ -1,6 +1,7 @@
 import { Component, OnInit, ComponentRef, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
 import { InstaService } from '../insta.service';
 import { CardComponent } from '../card/card.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,12 +17,16 @@ export class HomeComponent implements OnInit {
 
   componentRefs = Array<ComponentRef<CardComponent>>();
 
-  constructor(private instaService: InstaService, private CFR: ComponentFactoryResolver) {
-    instaService.getPosts(4).subscribe((data) => {
-      data.forEach(element => {
-        this.createCard(element);
+  constructor(private instaService: InstaService, private CFR: ComponentFactoryResolver, private router: Router) {
+    if (localStorage.getItem('user_profile') == null) {
+      this.router.navigateByUrl('/login');
+    } else {
+      instaService.getPosts(4).subscribe((data) => {
+        data.forEach(element => {
+          this.createCard(element);
+        });
       });
-    });
+    }
   }
 
   ngOnInit() {
