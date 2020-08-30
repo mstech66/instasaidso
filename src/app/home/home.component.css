@@ -47,6 +47,8 @@
 }
 
 .hero {
+    width: 100px;
+    height: auto;
     border-radius: 50%;
     object-fit: cover;
     border: 1px solid #e2e2e2;

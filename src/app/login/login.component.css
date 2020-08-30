@@ -34,4 +34,6 @@
 #gbutton {
     color: #414141;
     padding: 8px 0px;
+    display: grid;
+    align-content: center;
 }

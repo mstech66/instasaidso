@@ -1,7 +1,8 @@
 import { Component, OnInit, ComponentRef, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
-import { InstaService } from '../insta.service';
+import { InstaService } from '../services/insta/insta.service';
 import { CardComponent } from '../card/card.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +20,17 @@ export class HomeComponent implements OnInit {
 
   profileImg; profileName;
 
-  constructor(private instaService: InstaService, private CFR: ComponentFactoryResolver, private router: Router) {
+  constructor(
+    private auth: AuthService,
+    private instaService: InstaService,
+    private CFR: ComponentFactoryResolver,
+    private router: Router) {
     if (localStorage.getItem('user_profile') == null) {
       this.router.navigateByUrl('/login');
     } else {
       const profile = JSON.parse(localStorage.getItem('user_profile'));
-      this.profileName = profile.Ad;
-      this.profileImg = profile.TJ;
+      this.profileName = profile.name;
+      this.profileImg = profile.picture;
       console.log(profile);
       instaService.getPosts(4).subscribe((data) => {
         data.forEach(element => {

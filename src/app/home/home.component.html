@@ -11,7 +11,7 @@
                     <img src="{{profileImg}}" alt="" class="hero">
                     <div class="details">
                         <span class="mat-h2" id="profileName">{{profileName}}</span>
-                        <button mat-stroked-button color="warn" id="signOut">Signout</button>
+                        <button mat-stroked-button color="warn" id="signOut" (click)="auth.signOut()">Signout</button>
                     </div>
                 </div>
                 <div class="marketing">
