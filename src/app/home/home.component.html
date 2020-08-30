@@ -7,7 +7,17 @@
         </section>
         <section class="side-pane">
             <mat-card class="bio-card">
-
+                <div class="bio">
+                    <img src="{{profileImg}}" alt="" class="hero">
+                    <div class="details">
+                        <span class="mat-h2" id="profileName">{{profileName}}</span>
+                        <button mat-stroked-button color="warn" id="signOut">Signout</button>
+                    </div>
+                </div>
+                <div class="marketing">
+                    <h1 class="splash-title">InstaSaidSo!</h1>
+                    <span class="powered">Inspired by Instagram | Powered by Electron</span>
+                </div>
             </mat-card>
         </section>
     </section>

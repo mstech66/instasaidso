@@ -50,6 +50,7 @@
 .mat-card-title {
     font-size: 15px;
     color: #212121;
+    margin-left: -4px !important;
     margin-bottom: 0px !important;
 }
 

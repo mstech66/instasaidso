@@ -16,11 +16,61 @@
     height: 250px;
     position: sticky;
     top: 32px;
-}
-
-.bio-card {
     background-color: #f8f8f8;
     color: #313131;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    user-select: none;
+}
+
+.bio {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.details {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    margin: 16px;
+    align-self: center;
+}
+
+#profileName {
+    margin-bottom: 8px;
+    align-self: end;
+    overflow: hidden;
+}
+
+#signOut {
+    align-self: start;
+    margin-top: 8px;
+}
+
+.hero {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e2e2e2;
+    align-self: center;
+}
+
+.splash-title {
+    font-family: "DMSerifText-Regular";
+    color: #828282;
+    font-size: 2rem;
+    margin-bottom: 16px;
+    place-self: center;
+}
+
+.powered {
+    text-align: center;
+    color: #a2a2a2;
+    font-size: 1rem;
+}
+
+.marketing {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: center;
 }
 
 @keyframes like {

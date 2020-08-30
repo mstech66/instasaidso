@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler(element, {}, (googleUser) => {
       const profile = googleUser.getBasicProfile();
       console.log('Name: ' + profile.getName());
-      localStorage.setItem('user_profile', profile);
+      localStorage.setItem('user_profile', JSON.stringify(profile));
       // this.router.navigate(['/home']);
       location.replace('http://localhost:4200/home');
     }, (error) => {

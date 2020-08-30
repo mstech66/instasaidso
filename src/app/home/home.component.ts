@@ -17,10 +17,16 @@ export class HomeComponent implements OnInit {
 
   componentRefs = Array<ComponentRef<CardComponent>>();
 
+  profileImg; profileName;
+
   constructor(private instaService: InstaService, private CFR: ComponentFactoryResolver, private router: Router) {
     if (localStorage.getItem('user_profile') == null) {
       this.router.navigateByUrl('/login');
     } else {
+      const profile = JSON.parse(localStorage.getItem('user_profile'));
+      this.profileName = profile.Ad;
+      this.profileImg = profile.TJ;
+      console.log(profile);
       instaService.getPosts(4).subscribe((data) => {
         data.forEach(element => {
           this.createCard(element);
