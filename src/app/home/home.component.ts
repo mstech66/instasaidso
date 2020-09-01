@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   profileImg; profileName;
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private instaService: InstaService,
     private CFR: ComponentFactoryResolver,
     private router: Router) {
